@@ -269,16 +269,38 @@
                 navLinks.classList.toggle('show');
             }
     
-            // Mock function for generating study plan
-            function generateStudyPlan() {
-                const studyInput = document.getElementById('studyInput').value;
-                const outputDiv = document.getElementById('studyPlanOutput');
-                if (studyInput.trim() === '') {
-                    outputDiv.innerHTML = "<p style='color: red;'>Please enter your study information.</p>";
-                } else {
-                    outputDiv.innerHTML = `<p>Generating study plan for: ${studyInput}</p>`;
-                }
-            }
+            async function generateStudyPlan() {
+    const studyInput = document.getElementById('studyInput').value;
+    const outputDiv = document.getElementById('studyPlanOutput');
+
+    if (studyInput.trim() === '') {
+        outputDiv.innerHTML = "<p style='color: red;'>Please enter your study information.</p>";
+        return;
+    }
+
+    // API call to OpenAI
+    const apiKey = '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'; // Replace with your actual API key
+    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            prompt: `Create a personalized study plan based on the following information: ${studyInput}`,
+            max_tokens: 150, // Adjust the number of tokens based on your needs
+            temperature: 0.7
+        })
+    });
+
+    const data = await response.json();
+    if (data.choices && data.choices.length > 0) {
+        outputDiv.innerHTML = `<p>${data.choices[0].text.trim()}</p>`;
+    } else {
+        outputDiv.innerHTML = "<p style='color: red;'>No response from AI. Please try again.</p>";
+    }
+}
+
         </script>
     
     </body>
