@@ -274,29 +274,28 @@
     const output = document.getElementById('studyPlanOutput');
     
     const apiKey = "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"; // Replace this with your GPT-Neo key
-    const prompt = `Create a study plan based on this input: ${input}`;
+    const prompt = `Create a personalized study plan based on the following information: ${input}`;
 
-    fetch('https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B', {
+    fetch("https://api.gpt-neo.com/v1/engines/gpt-neo-2.7b/completions", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            inputs: prompt,
-            options: {
-                max_new_tokens: 150,
-            },
+            prompt: prompt,
+            max_tokens: 300, // Increased max_tokens for more detailed responses
         }),
     })
     .then(response => response.json())
     .then(data => {
-        output.innerHTML = `<p>${data[0].generated_text}</p>`;
+        output.innerHTML = `<p>${data.choices[0].text}</p>`;
     })
     .catch(error => {
         output.innerHTML = `<p>There was an error: ${error.message}</p>`;
     });
 }
+
 
     </script>
 
