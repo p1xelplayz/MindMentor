@@ -257,51 +257,48 @@
     <footer>
         <p>Connect with us on social media:</p>
         <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
             <a href="#">Instagram</a>
         </div>
-            <p>&copy; 2024 MindMentor Inc. All rights reserved.</p>
-        </footer>
-    
-        <script>
-            // Toggle mobile menu
-            function toggleMenu() {
-                const navLinks = document.querySelector('.nav-links');
-                navLinks.classList.toggle('show');
-            }
-    
-            async function generateStudyPlan() {
-    const studyInput = document.getElementById('studyInput').value;
-    const outputDiv = document.getElementById('studyPlanOutput');
+    </footer>
 
-    if (studyInput.trim() === '') {
-        outputDiv.innerHTML = "<p style='color: red;'>Please enter your study information.</p>";
-        return;
-    }
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        }
 
-    // API call to OpenAI
-    const apiKey = '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'
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            prompt: `Create a personalized study plan based on the following information: ${studyInput}`,
-            max_tokens: 150, // Adjust the number of tokens based on your needs
-            temperature: 0.7
-        })
-    });
+        function generateStudyPlan() {
+            const input = document.getElementById('studyInput').value;
+            const output = document.getElementById('studyPlanOutput');
+            
+            // Replace the API Key part for the new GPT-Neo API you're using now
+            const apiKey = "YOUR_GPT_NEO_API_KEY"; // Replace this with your GPT-Neo key
+            const prompt = `Create a study plan based on this input: ${input}`;
 
-    const data = await response.json();
-    if (data.choices && data.choices.length > 0) {
-        outputDiv.innerHTML = `<p>${data.choices[0].text.trim()}</p>`;
-    } else {
-        outputDiv.innerHTML = "<p style='color: red;'>No response from AI. Please try again.</p>";
-    }
-}
+            fetch("https://api.gpt-neo.com/v1/engines/gpt-neo-2.7b/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    prompt: prompt,
+                    max_tokens: 150,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                output.innerHTML = `<p>${data.choices[0].text}</p>`;
+            })
+            .catch(error => {
+                output.innerHTML = `<p>There was an error: ${error.message}</p>`;
+            });
+        }
+    </script>
 
-        </script>
-    
-    </body>
-    </html>
+</body>
+</html>
+
     
