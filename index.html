@@ -264,40 +264,37 @@
     </footer>
 
     <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('show');
-        }
+    async function query(data) {
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b",
+            {
+                headers: {
+                    Authorization: "Bearer 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", // Replace with your API key
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    inputs: data,
+                    parameters: { max_tokens: 200 }
+                }),
+            }
+        );
+        const result = await response.json();
+        return result;
+    }
 
-        async function generateStudyPlan() {
-    const input = document.getElementById('studyInput').value;
-    const output = document.getElementById('studyPlanOutput');
-    
-    const apiKey = "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"; // Replace this with your GPT-Neo key
-    const prompt = `Create a personalized study plan based on the following information: ${input}`;
+    function generateStudyPlan() {
+        const input = document.getElementById('studyInput').value;
+        const output = document.getElementById('studyPlanOutput');
 
-    fetch("https://api.gpt-neo.com/v1/engines/gpt-neo-2.7b/completions", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            prompt: prompt,
-            max_tokens: 800, // Increased max_tokens for more detailed responses
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        output.innerHTML = `<p>${data.choices[0].text}</p>`;
-    })
-    .catch(error => {
-        output.innerHTML = `<p>There was an error: ${error.message}</p>`;
-    });
-}
+        query(input).then((response) => {
+            output.innerHTML = `<p>${response.generated_text}</p>`;
+        }).catch(error => {
+            output.innerHTML = `<p>There was an error: ${error.message}</p>`;
+        });
+    }
+</script>
 
-
-    </script>
 
 </body>
 </html>
