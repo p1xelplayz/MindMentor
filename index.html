@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindMentor</title>
+    <title>MindMentor - AI Study Plan Generator</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -166,9 +166,6 @@
         <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#key-features">Key Features</a></li>
-            <li><a href="#key-benefits">Key Benefits</a></li>
-            <li><a href="#blogs">Study Blogs</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
     </div>
@@ -202,15 +199,19 @@
             const outputDiv = document.getElementById('studyPlanOutput');
             outputDiv.innerHTML = '<div class="spinner"></div> Generating your study plan...';
 
+            const refinedPrompt = `Plan a detailed study schedule based on the following:
+            ${input}
+            Format the output as a step-by-step study plan with deadlines and tasks.`;
+
             try {
-                const response = await fetch('https://api-inference.huggingface.co/models/EleutherAI/gpt-neox-20b', {
+                const response = await fetch('https://api-inference.huggingface.co/models/google/flan-t5-large', {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'Bearer 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',
+                        'Authorization': 'Bearer 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', // Replace with your Hugging Face API key
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        inputs: input,
+                        inputs: refinedPrompt,
                         options: { use_cache: false }
                     })
                 });
@@ -229,3 +230,4 @@
     </script>
 </body>
 </html>
+
