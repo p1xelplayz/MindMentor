@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMentor - Your AI Study Companion</title>
+    <meta name="description" content="MindMentor - Your Personalized AI Study Companion">
+    <meta name="keywords" content="AI, Study Planner, Personal Project, Learning Companion">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">Loading MindMentor...</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <div class="menu-items">
+            <a href="#hero">Home</a>
+            <a href="#features">Key Features</a>
+            <a href="#steps">How to Use</a>
+            <a href="#discussions">Discussions</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌓</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1>MindMentor</h1>
+            <p>Your Personalized AI Study Companion</p>
+            <button onclick="window.open('https://huggingface.co/spaces')">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="fade-in">
+        <h2>Key Features</h2>
+        <div class="feature-container">
+            <div class="feature">
+                <img src="icon1.png" alt="Personalized Plans Icon">
+                <h3>Personalized Study Plans</h3>
+                <p>Get study plans tailored to your specific needs and goals.</p>
+            </div>
+            <div class="feature">
+                <img src="icon2.png" alt="AI Responses Icon">
+                <h3>AI-Driven Responses</h3>
+                <p>Receive intelligent, adaptive responses to guide your learning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step-by-Step Guide Section -->
+    <section id="steps" class="fade-in">
+        <h2>How to Use MindMentor</h2>
+        <div class="steps">
+            <div class="step">
+                <span>1</span>
+                <p>Go to our Hugging Face Space and start a conversation.</p>
+            </div>
+            <div class="step">
+                <span>2</span>
+                <p>Enter your study goals, questions, or deadlines.</p>
+            </div>
+            <div class="step">
+                <span>3</span>
+                <p>Receive a detailed, personalized study plan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion Info Section -->
+    <section id="discussions" class="fade-in">
+        <h2>Discussions Area</h2>
+        <p>Join the discussion area on Hugging Face to share experiences, ask questions, and get feedback from other users.</p>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="fade-in">
+        <h2>FAQ</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <h3 onclick="toggleAccordion(this)">How do I start using MindMentor?</h3>
+                <p>Click "Get Started Now" to visit our Hugging Face Space.</p>
+            </div>
+            <div class="accordion-item">
+                <h3 onclick="toggleAccordion(this)">Can I use MindMentor for any subject?</h3>
+                <p>Yes! MindMentor is designed to help you study for various subjects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer/Contact Section -->
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" onsubmit="sendEmail(); return false;">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="socials">
+            <a href="https://www.instagram.com/ian.mind_mentor.ae/" target="_blank">
+                <img src="instagram-icon.png" alt="Instagram Icon">
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
